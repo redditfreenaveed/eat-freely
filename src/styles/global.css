@@ -1,0 +1,27 @@
+/* global.css */
+*, *::before, *::after { box-sizing: border-box; }
+
+:root {
+  --bg-base: #0C0F0A;
+  --bg-card: #111410;
+  --bg-card-hover: #151A10;
+  --border: #1A1F16;
+  --border-hover: #2E3E20;
+  --text-primary: #F0EDE6;
+  --text-secondary: #8A9A7B;
+  --text-muted: #4A5240;
+  --accent-green: #74C69D;
+  --font-serif: 'Georgia', 'Times New Roman', serif;
+  --font-mono: 'Courier New', monospace;
+}
+
+body {
+  margin: 0;
+  background: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-serif);
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; }
