@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Header from '../../components/Header/Header';
 import DietaryProfileSelector from '../../components/DietaryProfileSelector/DietaryProfileSelector';
 import RestaurantCard from '../../components/RestaurantCard/RestaurantCard';
+import DetailDrawer from '../../components/DetailDrawer/DetailDrawer';
 import { getProfileById } from '../../utils/dietaryProfiles';
 
 const SAMPLE = {
@@ -21,6 +22,7 @@ const SAMPLE = {
 export default function Home() {
   const [q, setQ] = useState('');
   const [selectedId, setSelectedId] = useState('muslim');
+  const [selectedRestaurant, setSelectedRestaurant] = useState(null);
   const toggle = (id) => setSelectedId((prev) => (prev === id ? null : id));
   const activeProfile = selectedId ? getProfileById(selectedId) : null;
   return (
@@ -31,9 +33,14 @@ export default function Home() {
         <RestaurantCard
           restaurant={SAMPLE}
           activeProfile={activeProfile}
-          onClick={() => alert('card clicked')}
+          onClick={() => setSelectedRestaurant(SAMPLE)}
         />
       </div>
+      <DetailDrawer
+        restaurant={selectedRestaurant}
+        activeProfile={activeProfile}
+        onClose={() => setSelectedRestaurant(null)}
+      />
     </>
   );
 }
