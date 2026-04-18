@@ -1,5 +1,5 @@
 /**
- * DietaryContext.js
+ * DietaryContext.jsx
  * Global state for the user's selected dietary profile.
  */
 
