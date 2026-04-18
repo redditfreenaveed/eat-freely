@@ -1,41 +1,64 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Header from '../../components/Header/Header';
 import DietaryProfileSelector from '../../components/DietaryProfileSelector/DietaryProfileSelector';
 import RestaurantCard from '../../components/RestaurantCard/RestaurantCard';
 import DetailDrawer from '../../components/DetailDrawer/DetailDrawer';
-import { getProfileById } from '../../utils/dietaryProfiles';
-
-const SAMPLE = {
-  id: 1,
-  name: 'Zam Zam Palace',
-  cuisine: 'Middle Eastern',
-  location: 'Downtown',
-  rating: 4.8,
-  tags: ['halal', 'vegetarian'],
-  image: '🕌',
-  priceRange: '$$',
-  distance: '0.3 mi',
-  highlights: ['Halal Certified', 'Family Friendly'],
-  description: 'Authentic Middle Eastern flavors with a fully halal kitchen.',
-};
+import { useDietaryFilter } from '../../hooks/useDietaryFilter';
+import { getRestaurants } from '../../services/restaurantService';
 
 export default function Home() {
-  const [q, setQ] = useState('');
-  const [selectedId, setSelectedId] = useState('muslim');
+  const [restaurants, setRestaurants] = useState([]);
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
-  const toggle = (id) => setSelectedId((prev) => (prev === id ? null : id));
-  const activeProfile = selectedId ? getProfileById(selectedId) : null;
+
+  const {
+    filtered,
+    activeProfile,
+    selectedProfileId,
+    searchQuery,
+    setSearchQuery,
+    toggleProfile,
+    clearFilters,
+  } = useDietaryFilter(restaurants);
+
+  useEffect(() => {
+    getRestaurants().then(setRestaurants);
+  }, []);
+
+  const hasActiveFilter = selectedProfileId || searchQuery.trim();
+
   return (
     <>
-      <Header searchQuery={q} onSearchChange={setQ} />
-      <DietaryProfileSelector selectedId={selectedId} onToggle={toggle} />
-      <div style={{ padding: '16px', maxWidth: 640, margin: '0 auto' }}>
-        <RestaurantCard
-          restaurant={SAMPLE}
-          activeProfile={activeProfile}
-          onClick={() => setSelectedRestaurant(SAMPLE)}
-        />
-      </div>
+      <Header searchQuery={searchQuery} onSearchChange={setSearchQuery} />
+      <DietaryProfileSelector selectedId={selectedProfileId} onToggle={toggleProfile} />
+      <main className="home-main">
+        {hasActiveFilter && (
+          <div className="results-bar">
+            <span>
+              {filtered.length} restaurant{filtered.length !== 1 ? 's' : ''}
+              {activeProfile ? ` · ${activeProfile.label}` : ''}
+              {searchQuery.trim() ? ` · "${searchQuery}"` : ''}
+            </span>
+            <button className="results-bar__clear" onClick={clearFilters}>Clear</button>
+          </div>
+        )}
+        {filtered.length === 0 ? (
+          <div className="empty-state">
+            <p>No restaurants match your filter.</p>
+            <button onClick={clearFilters}>Clear filters</button>
+          </div>
+        ) : (
+          <div className="restaurant-list">
+            {filtered.map((r) => (
+              <RestaurantCard
+                key={r.id}
+                restaurant={r}
+                activeProfile={activeProfile}
+                onClick={() => setSelectedRestaurant(r)}
+              />
+            ))}
+          </div>
+        )}
+      </main>
       <DetailDrawer
         restaurant={selectedRestaurant}
         activeProfile={activeProfile}
