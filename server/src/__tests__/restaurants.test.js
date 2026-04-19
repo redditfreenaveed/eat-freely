@@ -30,6 +30,13 @@ describe('GET /api/restaurants', () => {
       [['halal', 'vegan']]
     );
   });
+
+  it('returns 200 with empty array when ?tags= is empty string', async () => {
+    query.mockResolvedValueOnce({ rows: [] });
+    const res = await request(app).get('/api/restaurants?tags=');
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual([]);
+  });
 });
 
 describe('GET /api/restaurants/:id', () => {
@@ -59,5 +66,10 @@ describe('GET /api/restaurants/:id', () => {
     query.mockResolvedValueOnce({ rows: [] });
     const res = await request(app).get('/api/restaurants/999');
     expect(res.status).toBe(404);
+  });
+
+  it('returns 400 for non-integer id', async () => {
+    const res = await request(app).get('/api/restaurants/abc');
+    expect(res.status).toBe(400);
   });
 });

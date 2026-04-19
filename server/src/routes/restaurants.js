@@ -23,20 +23,30 @@ router.get('/', async (req, res) => {
   try {
     let result;
     if (req.query.tags) {
-      const tags = req.query.tags.split(',').map((t) => t.trim());
-      result = await query('SELECT * FROM restaurants WHERE tags && $1 ORDER BY id', [tags]);
+      const tags = req.query.tags.split(',').map((t) => t.trim()).filter(Boolean);
+      if (tags.length === 0) {
+        result = await query('SELECT * FROM restaurants ORDER BY id', []);
+      } else {
+        result = await query('SELECT * FROM restaurants WHERE tags && $1 ORDER BY id', [tags]);
+      }
     } else {
       result = await query('SELECT * FROM restaurants ORDER BY id', []);
     }
     res.json(result.rows.map(toClient));
   } catch (err) {
+    console.error('[restaurants]', err);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
 
 router.get('/:id', async (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  if (!Number.isInteger(id) || id < 1) {
+    return res.status(400).json({ error: 'Invalid id' });
+  }
+
   try {
-    const rResult = await query('SELECT * FROM restaurants WHERE id = $1', [req.params.id]);
+    const rResult = await query('SELECT * FROM restaurants WHERE id = $1', [id]);
     const row = rResult.rows[0];
     if (!row) return res.status(404).json({ error: 'Not found' });
 
@@ -47,7 +57,7 @@ router.get('/:id', async (req, res) => {
        LEFT JOIN menu_items mi ON mi.section_id = ms.id
        WHERE ms.restaurant_id = $1
        ORDER BY ms.sort_order, mi.sort_order`,
-      [req.params.id]
+      [id]
     );
 
     const sectionsMap = new Map();
@@ -67,6 +77,7 @@ router.get('/:id', async (req, res) => {
 
     res.json({ ...toClient(row), menu: Array.from(sectionsMap.values()) });
   } catch (err) {
+    console.error('[restaurants]', err);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
