@@ -11,7 +11,7 @@ router.post('/login', async (req, res) => {
   if (!email || !password) return res.status(400).json({ error: 'Email and password required' });
 
   try {
-    const result = await query('SELECT * FROM admins WHERE email = $1', [email]);
+    const result = await query('SELECT id, email, role, restaurant_id, password_hash FROM admins WHERE email = $1', [email]);
     const admin = result.rows[0];
     if (!admin) return res.status(401).json({ error: 'Invalid credentials' });
 

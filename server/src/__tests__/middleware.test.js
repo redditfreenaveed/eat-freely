@@ -39,6 +39,16 @@ describe('requireAdmin', () => {
     expect(next).toHaveBeenCalled();
     expect(req.admin.adminId).toBe(1);
   });
+
+  it('returns 401 for expired token', () => {
+    const token = jwt.sign({ adminId: 1, role: 'admin', restaurantId: null }, 'test-secret', { expiresIn: -1 });
+    const req = { headers: { authorization: `Bearer ${token}` } };
+    const res = mockRes();
+    const next = jest.fn();
+    requireAdmin(req, res, next);
+    expect(res.status).toHaveBeenCalledWith(401);
+    expect(next).not.toHaveBeenCalled();
+  });
 });
 
 describe('requireOwner', () => {
