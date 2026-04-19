@@ -56,6 +56,15 @@ describe('PATCH /api/admin/restaurants/:id/menu/sections/:sectionId', () => {
     expect(res.status).toBe(200);
     expect(res.body.name).toBe('Appetisers');
   });
+
+  it('returns 404 when section not found', async () => {
+    query.mockResolvedValueOnce({ rows: [] });
+    const res = await request(app)
+      .patch('/api/admin/restaurants/1/menu/sections/999')
+      .set(auth(adminToken))
+      .send({ name: 'New Name' });
+    expect(res.status).toBe(404);
+  });
 });
 
 describe('DELETE /api/admin/restaurants/:id/menu/sections/:sectionId', () => {
@@ -65,6 +74,14 @@ describe('DELETE /api/admin/restaurants/:id/menu/sections/:sectionId', () => {
       .delete('/api/admin/restaurants/1/menu/sections/10')
       .set(auth(adminToken));
     expect(res.status).toBe(204);
+  });
+
+  it('returns 404 when section not found', async () => {
+    query.mockResolvedValueOnce({ rows: [] });
+    const res = await request(app)
+      .delete('/api/admin/restaurants/1/menu/sections/999')
+      .set(auth(adminToken));
+    expect(res.status).toBe(404);
   });
 });
 
