@@ -143,6 +143,7 @@ const load = () => {
   try {
     return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
   } catch {
+    localStorage.removeItem(STORAGE_KEY);
     return MOCK_RESTAURANTS;
   }
 };
@@ -157,23 +158,30 @@ export const RestaurantProvider = ({ children }) => {
     return load();
   });
 
-  const persist = (updated) => {
-    save(updated);
-    setRestaurants(updated);
-  };
-
   const addRestaurant = (data) => {
     const id = Date.now();
-    persist([...restaurants, { ...data, id }]);
+    setRestaurants((prev) => {
+      const next = [...prev, { ...data, id }];
+      save(next);
+      return next;
+    });
     return id;
   };
 
   const updateRestaurant = (id, data) => {
-    persist(restaurants.map((r) => (r.id === id ? { ...r, ...data } : r)));
+    setRestaurants((prev) => {
+      const next = prev.map((r) => (r.id === id ? { ...r, ...data } : r));
+      save(next);
+      return next;
+    });
   };
 
   const deleteRestaurant = (id) => {
-    persist(restaurants.filter((r) => r.id !== id));
+    setRestaurants((prev) => {
+      const next = prev.filter((r) => r.id !== id);
+      save(next);
+      return next;
+    });
   };
 
   return (

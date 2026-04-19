@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Navigate } from 'react-router-dom';
 import AdminHeader from '../../components/AdminHeader/AdminHeader';
 import TagSelector from '../../components/TagSelector/TagSelector';
 import MenuManager from '../../components/MenuManager/MenuManager';
@@ -23,7 +23,12 @@ export default function RestaurantForm() {
       const existing = restaurants.find((r) => r.id === Number(id));
       if (existing) setForm(existing);
     }
-  }, [id, restaurants, isNew]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id, isNew]);
+
+  if (!isNew && !restaurants.find((r) => r.id === Number(id))) {
+    return <Navigate to="/dashboard" replace />;
+  }
 
   const set = (field, value) => setForm((f) => ({ ...f, [field]: value }));
 

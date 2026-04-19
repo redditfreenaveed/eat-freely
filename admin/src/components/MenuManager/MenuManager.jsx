@@ -7,13 +7,13 @@ export default function MenuManager({ menu = [], onChange }) {
 
   const deleteSection = (idx) => onChange(menu.filter((_, i) => i !== idx));
 
-  const addSection = () => onChange([...menu, { section: 'New Section', items: [] }]);
+  const addSection = () => onChange([...menu, { section: 'New Section', items: [], _key: Date.now() }]);
 
   const addItem = (sIdx) => {
     const section = menu[sIdx];
     updateSection(sIdx, {
       ...section,
-      items: [...section.items, { name: '', description: '', price: '', tags: [] }],
+      items: [...section.items, { name: '', description: '', price: '', tags: [], _key: Date.now() }],
     });
   };
 
@@ -38,20 +38,20 @@ export default function MenuManager({ menu = [], onChange }) {
   return (
     <div className="menu-manager">
       {menu.map((section, sIdx) => (
-        <div key={sIdx} className="menu-section">
+        <div key={section._key ?? sIdx} className="menu-section">
           <div className="menu-section__header">
             <input
               className="form-input menu-section__name"
               value={section.section}
               onChange={(e) => updateSection(sIdx, { ...section, section: e.target.value })}
             />
-            <button className="btn btn--danger btn--small" onClick={() => deleteSection(sIdx)}>
+            <button type="button" className="btn btn--danger btn--small" onClick={() => deleteSection(sIdx)}>
               Remove section
             </button>
           </div>
           <div className="menu-section__body">
             {section.items.map((item, iIdx) => (
-              <div key={iIdx} className="menu-item-row">
+              <div key={item._key ?? iIdx} className="menu-item-row">
                 <div className="menu-item-row__fields">
                   <input
                     className="form-input"
@@ -65,7 +65,7 @@ export default function MenuManager({ menu = [], onChange }) {
                     value={item.price}
                     onChange={(e) => updateItem(sIdx, iIdx, 'price', e.target.value)}
                   />
-                  <button className="btn btn--danger btn--small" onClick={() => deleteItem(sIdx, iIdx)}>✕</button>
+                  <button type="button" className="btn btn--danger btn--small" onClick={() => deleteItem(sIdx, iIdx)}>✕</button>
                 </div>
                 <input
                   className="form-input menu-item-row__desc"
@@ -79,11 +79,11 @@ export default function MenuManager({ menu = [], onChange }) {
                 />
               </div>
             ))}
-            <button className="menu-add-btn" onClick={() => addItem(sIdx)}>+ Add item</button>
+            <button type="button" className="menu-add-btn" onClick={() => addItem(sIdx)}>+ Add item</button>
           </div>
         </div>
       ))}
-      <button className="add-section-btn" onClick={addSection}>+ Add section</button>
+      <button type="button" className="add-section-btn" onClick={addSection}>+ Add section</button>
     </div>
   );
 }
