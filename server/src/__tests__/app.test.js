@@ -1,7 +1,7 @@
 'use strict';
 const request = require('supertest');
 
-jest.mock('../db/client', () => ({ query: jest.fn() }));
+jest.mock('../db/client', () => ({ pool: {}, query: jest.fn() }));
 
 const app = require('../app');
 
