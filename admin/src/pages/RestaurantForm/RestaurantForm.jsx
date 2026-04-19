@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate, Navigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import AdminHeader from '../../components/AdminHeader/AdminHeader';
 import TagSelector from '../../components/TagSelector/TagSelector';
 import MenuManager from '../../components/MenuManager/MenuManager';
@@ -13,38 +13,44 @@ const EMPTY = {
 export default function RestaurantForm() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { restaurants, addRestaurant, updateRestaurant } = useRestaurants();
+  const { addRestaurant, updateRestaurant } = useRestaurants();
   const isNew = id === 'new';
 
   const [form, setForm] = useState(EMPTY);
 
   useEffect(() => {
     if (!isNew) {
-      const existing = restaurants.find((r) => r.id === Number(id));
-      if (existing) setForm(existing);
+      const API_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000';
+      fetch(`${API_URL}/api/restaurants/${id}`)
+        .then((r) => r.json())
+        .then((data) => {
+          if (data && data.id) setForm(data);
+          else navigate('/dashboard', { replace: true });
+        })
+        .catch(() => navigate('/dashboard', { replace: true }));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, isNew]);
 
-  if (!isNew && !restaurants.find((r) => r.id === Number(id))) {
-    return <Navigate to="/dashboard" replace />;
-  }
-
   const set = (field, value) => setForm((f) => ({ ...f, [field]: value }));
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const data = {
       ...form,
       rating: parseFloat(form.rating) || 0,
       highlights: form.highlights.filter(Boolean),
     };
-    if (isNew) {
-      addRestaurant(data);
-    } else {
-      updateRestaurant(Number(id), data);
+    try {
+      if (isNew) {
+        await addRestaurant(data);
+      } else {
+        await updateRestaurant(Number(id), data);
+      }
+      navigate('/dashboard');
+    } catch (err) {
+      alert(err.message);
     }
-    navigate('/dashboard');
   };
 
   return (

@@ -12,8 +12,8 @@ function RequireAuth({ children }) {
 }
 
 function OwnerRedirect() {
-  const { role } = useAuth();
-  if (role === 'owner') return <Navigate to="/restaurant/1" replace />;
+  const { role, restaurantId } = useAuth();
+  if (role === 'owner') return <Navigate to={`/restaurant/${restaurantId}`} replace />;
   return <Dashboard />;
 }
 
