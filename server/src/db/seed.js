@@ -194,6 +194,7 @@ const RESTAURANTS = [
 ];
 
 async function seed() {
+  if (!process.env.SEED_ADMIN_PASSWORD) throw new Error('SEED_ADMIN_PASSWORD env var is required');
   const client = await pool.connect();
   try {
     const schema = fs.readFileSync(path.join(__dirname, 'schema.sql'), 'utf8');
@@ -204,33 +205,38 @@ async function seed() {
     if (parseInt(existing.rows[0].count) > 0) {
       console.log('Restaurants already seeded — skipping');
     } else {
-      await client.query('BEGIN');
-      for (const r of RESTAURANTS) {
-        const { name, cuisine, location, rating, price_range, distance, image, highlights, tags, description, menu } = r;
-        const rRes = await client.query(
-          `INSERT INTO restaurants (name, cuisine, location, rating, price_range, distance, image, highlights, tags, description)
-           VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) RETURNING id`,
-          [name, cuisine, location, rating, price_range, distance, image, highlights, tags, description]
-        );
-        const restaurantId = rRes.rows[0].id;
-        for (let si = 0; si < menu.length; si++) {
-          const sec = menu[si];
-          const sRes = await client.query(
-            'INSERT INTO menu_sections (restaurant_id, name, sort_order) VALUES ($1,$2,$3) RETURNING id',
-            [restaurantId, sec.section, si]
+      try {
+        await client.query('BEGIN');
+        for (const r of RESTAURANTS) {
+          const { name, cuisine, location, rating, price_range, distance, image, highlights, tags, description, menu } = r;
+          const rRes = await client.query(
+            `INSERT INTO restaurants (name, cuisine, location, rating, price_range, distance, image, highlights, tags, description)
+             VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) RETURNING id`,
+            [name, cuisine, location, rating, price_range, distance, image, highlights, tags, description]
           );
-          const sectionId = sRes.rows[0].id;
-          for (let ii = 0; ii < sec.items.length; ii++) {
-            const item = sec.items[ii];
-            await client.query(
-              'INSERT INTO menu_items (section_id, name, description, price, tags, sort_order) VALUES ($1,$2,$3,$4,$5,$6)',
-              [sectionId, item.name, item.description, item.price, item.tags, ii]
+          const restaurantId = rRes.rows[0].id;
+          for (let si = 0; si < menu.length; si++) {
+            const sec = menu[si];
+            const sRes = await client.query(
+              'INSERT INTO menu_sections (restaurant_id, name, sort_order) VALUES ($1,$2,$3) RETURNING id',
+              [restaurantId, sec.section, si]
             );
+            const sectionId = sRes.rows[0].id;
+            for (let ii = 0; ii < sec.items.length; ii++) {
+              const item = sec.items[ii];
+              await client.query(
+                'INSERT INTO menu_items (section_id, name, description, price, tags, sort_order) VALUES ($1,$2,$3,$4,$5,$6)',
+                [sectionId, item.name, item.description, item.price, item.tags, ii]
+              );
+            }
           }
         }
+        await client.query('COMMIT');
+      } catch (err) {
+        await client.query('ROLLBACK');
+        throw err;
       }
-      await client.query('COMMIT');
-      console.log('Seeded 8 restaurants');
+      console.log(`Seeded ${RESTAURANTS.length} restaurants`);
     }
 
     const existing2 = await client.query('SELECT COUNT(*) FROM admins');
