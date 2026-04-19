@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import TagBadge from '../TagBadge/TagBadge';
 
 export default function DetailDrawer({ restaurant, activeProfile, onClose }) {
@@ -35,6 +36,9 @@ export default function DetailDrawer({ restaurant, activeProfile, onClose }) {
               <span key={h} className="drawer__highlight">{h}</span>
             ))}
           </div>
+          <Link to={`/restaurant/${restaurant.id}`} className="drawer__full-link">
+            View full details →
+          </Link>
         </div>
       </div>
     </>
