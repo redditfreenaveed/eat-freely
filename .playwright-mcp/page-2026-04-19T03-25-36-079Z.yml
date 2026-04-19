@@ -1,0 +1,103 @@
+- generic [ref=e2]:
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - generic [ref=e5]: Eat Freely
+      - generic [ref=e6]:
+        - generic [ref=e7]: 🔍
+        - textbox "Search restaurants, cuisines…" [ref=e8]
+  - generic [ref=e9]:
+    - button "☪️ Muslim / Halal" [ref=e10] [cursor=pointer]
+    - button "🕉️ Hindu / Vegetarian" [ref=e11] [cursor=pointer]
+    - button "🌱 Vegan" [ref=e12] [cursor=pointer]
+    - button "🌾 Gluten-Free" [ref=e13] [cursor=pointer]
+    - button "✡️ Jewish / Kosher" [ref=e14] [cursor=pointer]
+    - button "🥗 Vegetarian" [ref=e15] [cursor=pointer]
+  - main [ref=e16]:
+    - generic [ref=e17]:
+      - generic [ref=e18] [cursor=pointer]:
+        - generic [ref=e19]: 🕌
+        - generic [ref=e20]:
+          - generic [ref=e21]:
+            - generic [ref=e22]: Zam Zam Palace
+            - generic [ref=e23]: 4.8★
+          - generic [ref=e24]: Middle Eastern · Downtown · $$ · 0.3 mi
+          - generic [ref=e25]:
+            - generic [ref=e26]: halal
+            - generic [ref=e27]: vegetarian
+      - generic [ref=e28] [cursor=pointer]:
+        - generic [ref=e29]: 🌿
+        - generic [ref=e30]:
+          - generic [ref=e31]:
+            - generic [ref=e32]: The Green Temple
+            - generic [ref=e33]: 4.6★
+          - generic [ref=e34]: Indian Vegetarian · Midtown · $ · 0.7 mi
+          - generic [ref=e35]:
+            - generic [ref=e36]: vegetarian
+            - generic [ref=e37]: vegan
+            - generic [ref=e38]: sattvic
+            - generic [ref=e39]: gluten-free
+      - generic [ref=e40] [cursor=pointer]:
+        - generic [ref=e41]: 🌸
+        - generic [ref=e42]:
+          - generic [ref=e43]:
+            - generic [ref=e44]: Sakura Garden
+            - generic [ref=e45]: 4.5★
+          - generic [ref=e46]: Japanese · East Side · $$$ · 1.2 mi
+          - generic [ref=e47]:
+            - generic [ref=e48]: vegetarian
+            - generic [ref=e49]: pescatarian
+            - generic [ref=e50]: gluten-free
+      - generic [ref=e51] [cursor=pointer]:
+        - generic [ref=e52]: 🫒
+        - generic [ref=e53]:
+          - generic [ref=e54]:
+            - generic [ref=e55]: Mediterranean Bites
+            - generic [ref=e56]: 4.7★
+          - generic [ref=e57]: Mediterranean · West End · $$ · 0.9 mi
+          - generic [ref=e58]:
+            - generic [ref=e59]: halal
+            - generic [ref=e60]: vegetarian
+            - generic [ref=e61]: vegan
+            - generic [ref=e62]: pescatarian
+      - generic [ref=e63] [cursor=pointer]:
+        - generic [ref=e64]: 🥯
+        - generic [ref=e65]:
+          - generic [ref=e66]:
+            - generic [ref=e67]: Klein's Deli
+            - generic [ref=e68]: 4.4★
+          - generic [ref=e69]: Jewish Deli · Uptown · $$ · 1.5 mi
+          - generic [ref=e70]:
+            - generic [ref=e71]: kosher
+            - generic [ref=e72]: vegetarian
+      - generic [ref=e73] [cursor=pointer]:
+        - generic [ref=e74]: 🍝
+        - generic [ref=e75]:
+          - generic [ref=e76]:
+            - generic [ref=e77]: Verde Cucina
+            - generic [ref=e78]: 4.9★
+          - generic [ref=e79]: Italian Vegan · Arts District · $$$ · 2.1 mi
+          - generic [ref=e80]:
+            - generic [ref=e81]: vegan
+            - generic [ref=e82]: vegetarian
+            - generic [ref=e83]: gluten-free
+      - generic [ref=e84] [cursor=pointer]:
+        - generic [ref=e85]: 🍛
+        - generic [ref=e86]:
+          - generic [ref=e87]:
+            - generic [ref=e88]: Punjabi Dhaba
+            - generic [ref=e89]: 4.3★
+          - generic [ref=e90]: North Indian · Little India · $ · 1.8 mi
+          - generic [ref=e91]:
+            - generic [ref=e92]: halal
+            - generic [ref=e93]: vegetarian
+      - generic [ref=e94] [cursor=pointer]:
+        - generic [ref=e95]: 🥬
+        - generic [ref=e96]:
+          - generic [ref=e97]:
+            - generic [ref=e98]: The Harvest Table
+            - generic [ref=e99]: 4.2★
+          - generic [ref=e100]: American · Suburbs · $$ · 3.4 mi
+          - generic [ref=e101]:
+            - generic [ref=e102]: vegetarian
+            - generic [ref=e103]: vegan
+            - generic [ref=e104]: gluten-free

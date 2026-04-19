@@ -1,4 +1,6 @@
 'use strict';
+process.env.JWT_SECRET = 'test-secret';
+
 const request = require('supertest');
 
 jest.mock('../db/client', () => ({ pool: {}, query: jest.fn() }));

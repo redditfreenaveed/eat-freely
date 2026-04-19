@@ -1,0 +1,26 @@
+<h2>Who can access the admin portal?</h2>
+<p class="subtitle">This shapes routing, auth, and what each user sees</p>
+
+<div class="options">
+  <div class="option" data-choice="a" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Super-admin only</h3>
+      <p>One admin manages everything — adds restaurants, edits menus, manages all data. No restaurant-level login. Simplest to build, right for an early-stage MVP where you control onboarding.</p>
+    </div>
+  </div>
+  <div class="option" data-choice="b" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>Super-admin + restaurant owners</h3>
+      <p>Super-admin can see and manage everything. Restaurant owners log in and manage only their own restaurant's details and menu. More complex auth but lets restaurants self-serve.</p>
+    </div>
+  </div>
+  <div class="option" data-choice="c" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>Restaurant owners only (no super-admin UI)</h3>
+      <p>Any restaurant can register and manage their own listing. No central admin role. Scales well but harder to moderate quality.</p>
+    </div>
+  </div>
+</div>

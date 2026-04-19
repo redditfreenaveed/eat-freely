@@ -1,0 +1,65 @@
+- generic [ref=e2]:
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - generic [ref=e5]: Eat Freely
+      - generic [ref=e6]:
+        - generic [ref=e7]: 🔍
+        - textbox "Search restaurants, cuisines…" [ref=e8]
+  - generic [ref=e9]:
+    - button "☪️ Muslim / Halal" [ref=e10] [cursor=pointer]
+    - button "🕉️ Hindu / Vegetarian" [ref=e11] [cursor=pointer]
+    - button "🌱 Vegan" [active] [ref=e12] [cursor=pointer]
+    - button "🌾 Gluten-Free" [ref=e13] [cursor=pointer]
+    - button "✡️ Jewish / Kosher" [ref=e14] [cursor=pointer]
+    - button "🥗 Vegetarian" [ref=e15] [cursor=pointer]
+  - main [ref=e16]:
+    - generic [ref=e105]:
+      - generic [ref=e106]: 4 restaurants · Vegan
+      - button "Clear" [ref=e107] [cursor=pointer]
+    - generic [ref=e17]:
+      - generic [ref=e28] [cursor=pointer]:
+        - generic [ref=e29]: 🌿
+        - generic [ref=e30]:
+          - generic [ref=e31]:
+            - generic [ref=e32]: The Green Temple
+            - generic [ref=e33]: 4.6★
+          - generic [ref=e34]: Indian Vegetarian · Midtown · $ · 0.7 mi
+          - generic [ref=e35]:
+            - generic [ref=e36]: vegetarian
+            - generic [ref=e37]: ✓ vegan
+            - generic [ref=e38]: sattvic
+            - generic [ref=e39]: gluten-free
+      - generic [ref=e51] [cursor=pointer]:
+        - generic [ref=e52]: 🫒
+        - generic [ref=e53]:
+          - generic [ref=e54]:
+            - generic [ref=e55]: Mediterranean Bites
+            - generic [ref=e56]: 4.7★
+          - generic [ref=e57]: Mediterranean · West End · $$ · 0.9 mi
+          - generic [ref=e58]:
+            - generic [ref=e59]: halal
+            - generic [ref=e60]: vegetarian
+            - generic [ref=e61]: ✓ vegan
+            - generic [ref=e62]: pescatarian
+      - generic [ref=e73] [cursor=pointer]:
+        - generic [ref=e74]: 🍝
+        - generic [ref=e75]:
+          - generic [ref=e76]:
+            - generic [ref=e77]: Verde Cucina
+            - generic [ref=e78]: 4.9★
+          - generic [ref=e79]: Italian Vegan · Arts District · $$$ · 2.1 mi
+          - generic [ref=e80]:
+            - generic [ref=e81]: ✓ vegan
+            - generic [ref=e82]: vegetarian
+            - generic [ref=e83]: gluten-free
+      - generic [ref=e94] [cursor=pointer]:
+        - generic [ref=e95]: 🥬
+        - generic [ref=e96]:
+          - generic [ref=e97]:
+            - generic [ref=e98]: The Harvest Table
+            - generic [ref=e99]: 4.2★
+          - generic [ref=e100]: American · Suburbs · $$ · 3.4 mi
+          - generic [ref=e101]:
+            - generic [ref=e102]: vegetarian
+            - generic [ref=e103]: ✓ vegan
+            - generic [ref=e104]: gluten-free
