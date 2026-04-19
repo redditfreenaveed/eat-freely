@@ -58,6 +58,14 @@ describe('POST /api/admin/restaurants', () => {
     expect(res.status).toBe(201);
     expect(res.body.priceRange).toBe('$$');
   });
+
+  it('returns 400 when name is missing', async () => {
+    const res = await request(app)
+      .post('/api/admin/restaurants')
+      .set(authHeader(adminToken))
+      .send({ cuisine: 'Thai' });
+    expect(res.status).toBe(400);
+  });
 });
 
 describe('PATCH /api/admin/restaurants/:id', () => {
@@ -77,6 +85,15 @@ describe('PATCH /api/admin/restaurants/:id', () => {
       .send({ name: 'Updated' });
     expect(res.status).toBe(200);
   });
+
+  it('returns 404 when restaurant not found', async () => {
+    query.mockResolvedValueOnce({ rows: [] });
+    const res = await request(app)
+      .patch('/api/admin/restaurants/999')
+      .set(authHeader(adminToken))
+      .send({ name: 'Updated' });
+    expect(res.status).toBe(404);
+  });
 });
 
 describe('DELETE /api/admin/restaurants/:id', () => {
@@ -88,10 +105,18 @@ describe('DELETE /api/admin/restaurants/:id', () => {
   });
 
   it('deletes and returns 204 for admin', async () => {
-    query.mockResolvedValueOnce({ rows: [] });
+    query.mockResolvedValueOnce({ rows: [{ id: 1 }] });
     const res = await request(app)
       .delete('/api/admin/restaurants/1')
       .set(authHeader(adminToken));
     expect(res.status).toBe(204);
+  });
+
+  it('returns 404 when restaurant not found', async () => {
+    query.mockResolvedValueOnce({ rows: [] });
+    const res = await request(app)
+      .delete('/api/admin/restaurants/999')
+      .set(authHeader(adminToken));
+    expect(res.status).toBe(404);
   });
 });

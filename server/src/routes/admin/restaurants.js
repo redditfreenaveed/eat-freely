@@ -26,9 +26,15 @@ function toClient(row) {
 
 router.get('/', async (req, res) => {
   try {
-    const result = req.admin.role === 'admin'
-      ? await query('SELECT * FROM restaurants ORDER BY id', [])
-      : await query('SELECT * FROM restaurants WHERE id = $1', [req.admin.restaurantId]);
+    let result;
+    if (req.admin.role === 'admin') {
+      result = await query('SELECT * FROM restaurants ORDER BY id', []);
+    } else {
+      if (req.admin.restaurantId == null) {
+        return res.status(403).json({ error: 'Owner account has no restaurant assigned' });
+      }
+      result = await query('SELECT * FROM restaurants WHERE id = $1', [req.admin.restaurantId]);
+    }
     res.json(result.rows.map(toClient));
   } catch (err) {
     console.error('[admin/restaurants GET]', err);
@@ -39,12 +45,14 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
   if (req.admin.role !== 'admin') return res.status(403).json({ error: 'Forbidden' });
   const { name, cuisine, location, rating, priceRange, distance, description, highlights, tags, image } = req.body;
+  if (!name) return res.status(400).json({ error: 'Restaurant name is required' });
   try {
     const result = await query(
       `INSERT INTO restaurants (name, cuisine, location, rating, price_range, distance, description, highlights, tags, image)
        VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) RETURNING *`,
       [name, cuisine, location, rating || null, priceRange || null, distance || null, description || null, highlights || [], tags || [], image || null]
     );
+    if (!result.rows[0]) return res.status(500).json({ error: 'Insert failed' });
     res.status(201).json(toClient(result.rows[0]));
   } catch (err) {
     console.error('[admin/restaurants POST]', err);
@@ -81,8 +89,11 @@ router.patch('/:id', requireOwner, async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
   if (req.admin.role !== 'admin') return res.status(403).json({ error: 'Forbidden' });
+  const id = parseInt(req.params.id, 10);
+  if (!Number.isInteger(id) || id < 1) return res.status(400).json({ error: 'Invalid id' });
   try {
-    await query('DELETE FROM restaurants WHERE id = $1', [req.params.id]);
+    const result = await query('DELETE FROM restaurants WHERE id = $1 RETURNING id', [id]);
+    if (!result.rows[0]) return res.status(404).json({ error: 'Not found' });
     res.status(204).end();
   } catch (err) {
     console.error('[admin/restaurants DELETE]', err);
