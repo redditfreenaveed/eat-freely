@@ -6,7 +6,7 @@ const API_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000';
 const RestaurantContext = createContext(null);
 
 export const RestaurantProvider = ({ children }) => {
-  const { token } = useAuth();
+  const { token, logout } = useAuth();
   const [restaurants, setRestaurants] = useState([]);
 
   const authHeaders = useCallback(
@@ -16,9 +16,15 @@ export const RestaurantProvider = ({ children }) => {
 
   const loadRestaurants = useCallback(async () => {
     if (!token) return;
-    const res = await fetch(`${API_URL}/api/admin/restaurants`, { headers: authHeaders() });
-    if (res.ok) setRestaurants(await res.json());
-  }, [token, authHeaders]);
+    try {
+      const res = await fetch(`${API_URL}/api/admin/restaurants`, { headers: authHeaders() });
+      if (res.status === 401) { logout(); return; }
+      if (!res.ok) { console.error('[RestaurantContext] Failed to load restaurants:', res.status); return; }
+      setRestaurants(await res.json());
+    } catch (err) {
+      console.error('[RestaurantContext] loadRestaurants error:', err);
+    }
+  }, [token, authHeaders, logout]);
 
   useEffect(() => { loadRestaurants(); }, [loadRestaurants]);
 
@@ -26,6 +32,7 @@ export const RestaurantProvider = ({ children }) => {
     const res = await fetch(`${API_URL}/api/admin/restaurants`, {
       method: 'POST', headers: authHeaders(), body: JSON.stringify(data),
     });
+    if (res.status === 401) { logout(); throw new Error('Session expired'); }
     if (!res.ok) throw new Error('Failed to create restaurant');
     const created = await res.json();
     setRestaurants((prev) => [...prev, created]);
@@ -36,6 +43,7 @@ export const RestaurantProvider = ({ children }) => {
     const res = await fetch(`${API_URL}/api/admin/restaurants/${id}`, {
       method: 'PATCH', headers: authHeaders(), body: JSON.stringify(data),
     });
+    if (res.status === 401) { logout(); throw new Error('Session expired'); }
     if (!res.ok) throw new Error('Failed to update restaurant');
     const updated = await res.json();
     setRestaurants((prev) => prev.map((r) => (r.id === id ? updated : r)));
@@ -45,6 +53,7 @@ export const RestaurantProvider = ({ children }) => {
     const res = await fetch(`${API_URL}/api/admin/restaurants/${id}`, {
       method: 'DELETE', headers: authHeaders(),
     });
+    if (res.status === 401) { logout(); throw new Error('Session expired'); }
     if (!res.ok) throw new Error('Failed to delete restaurant');
     setRestaurants((prev) => prev.filter((r) => r.id !== id));
   };
