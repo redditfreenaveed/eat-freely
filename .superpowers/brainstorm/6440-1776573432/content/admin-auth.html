@@ -1,0 +1,19 @@
+<h2>Is authentication in scope for this build?</h2>
+<p class="subtitle">There's no backend yet — just mock data. This affects how much we build now vs. later.</p>
+
+<div class="options">
+  <div class="option" data-choice="a" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Mock auth — build the UI now, wire real auth later</h3>
+      <p>A simple role selector (Admin / Restaurant Owner) lets us switch personas and test both views. No real login. Fast to build, lets us focus on the portal UI and data forms. Real auth (JWT, OAuth, etc.) gets added when the backend is ready.</p>
+    </div>
+  </div>
+  <div class="option" data-choice="b" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>Real login screen — username/password, stored in mock data</h3>
+      <p>Build a login page with hardcoded credentials (e.g. admin@eatfreely.com / password). Closer to the real experience but more work now, and needs replacing later anyway.</p>
+    </div>
+  </div>
+</div>

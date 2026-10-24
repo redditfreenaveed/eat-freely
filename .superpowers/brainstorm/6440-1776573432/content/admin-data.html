@@ -1,0 +1,19 @@
+<h2>Where do restaurant changes get saved?</h2>
+<p class="subtitle">The admin app will be separate from the customer app. Since there's no real backend yet, we need a temporary storage strategy.</p>
+
+<div class="options">
+  <div class="option" data-choice="a" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>localStorage — persists across refreshes</h3>
+      <p>Restaurant data created/edited in the admin is saved to the browser's localStorage. Survives page refreshes. The customer app can also read from localStorage as a fallback over mock data. Good enough for demos and early testing.</p>
+    </div>
+  </div>
+  <div class="option" data-choice="b" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>In-memory only — UI prototype, no persistence</h3>
+      <p>Data resets on every refresh. Purely about building and validating the UI flows. Fastest to build — zero plumbing. Right if you just want to see the forms and flows work before investing in storage.</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,66 @@
+- generic [ref=e2]:
+  - generic [ref=e3]:
+    - button "←" [ref=e4] [cursor=pointer]
+    - generic [ref=e5]: eat freely
+  - main [ref=e6]:
+    - generic [ref=e7]:
+      - generic [ref=e8]: 🍝
+      - generic [ref=e9]:
+        - generic [ref=e10]: Verde Cucina
+        - generic [ref=e11]: Italian Vegan · Arts District · $$$ · 2.1 mi · 4.9★
+    - generic [ref=e12]:
+      - generic [ref=e13]: vegan
+      - generic [ref=e14]: vegetarian
+      - generic [ref=e15]: gluten-free
+    - paragraph [ref=e16]: Upscale Italian dining reimagined with plant-based ingredients.
+    - generic [ref=e17]:
+      - generic [ref=e18]: Fully Vegan
+      - generic [ref=e19]: GF Pasta Available
+    - generic [ref=e20]:
+      - heading "Menu" [level=2] [ref=e21]
+      - generic [ref=e22]:
+        - heading "Antipasti" [level=3] [ref=e23]
+        - generic [ref=e24]:
+          - generic [ref=e25]:
+            - generic [ref=e26]: Bruschetta al Pomodoro
+            - generic [ref=e27]: $10
+          - paragraph [ref=e28]: Grilled sourdough, heirloom tomato, basil, olive oil
+        - generic [ref=e29]:
+          - generic [ref=e30]:
+            - generic [ref=e31]: Burrata di Mandorle
+            - generic [ref=e32]: $14
+          - paragraph [ref=e33]: Almond-milk burrata, roasted peppers, focaccia
+        - generic [ref=e34]:
+          - generic [ref=e35]:
+            - generic [ref=e36]: Carpaccio di Barbabietola
+            - generic [ref=e37]: $12
+          - paragraph [ref=e38]: Thin-sliced beetroot, capers, herb oil, pine nuts
+      - generic [ref=e39]:
+        - heading "Pasta & Risotto" [level=3] [ref=e40]
+        - generic [ref=e41]:
+          - generic [ref=e42]:
+            - generic [ref=e43]: Pappardelle al Ragu Verde
+            - generic [ref=e44]: $22
+          - paragraph [ref=e45]: House pasta, slow-cooked lentil ragu, gremolata
+        - generic [ref=e46]:
+          - generic [ref=e47]:
+            - generic [ref=e48]: Risotto ai Funghi
+            - generic [ref=e49]: $24
+          - paragraph [ref=e50]: Wild mushroom risotto, truffle oil, crispy sage
+        - generic [ref=e51]:
+          - generic [ref=e52]:
+            - generic [ref=e53]: Spaghetti Aglio e Olio
+            - generic [ref=e54]: $18
+          - paragraph [ref=e55]: Garlic, chilli, parsley, premium olive oil (GF option)
+      - generic [ref=e56]:
+        - heading "Dolci" [level=3] [ref=e57]
+        - generic [ref=e58]:
+          - generic [ref=e59]:
+            - generic [ref=e60]: Tiramisu Vegano
+            - generic [ref=e61]: $10
+          - paragraph [ref=e62]: Cashew mascarpone, espresso-soaked ladyfingers
+        - generic [ref=e63]:
+          - generic [ref=e64]:
+            - generic [ref=e65]: Panna Cotta di Cocco
+            - generic [ref=e66]: $9
+          - paragraph [ref=e67]: Coconut panna cotta, berry coulis

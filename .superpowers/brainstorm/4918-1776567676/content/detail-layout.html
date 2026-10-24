@@ -1,0 +1,63 @@
+<h2>RestaurantDetail page layout</h2>
+<p class="subtitle">The full page reached via "View full details →". Uses the same design tokens as the rest of the app.</p>
+
+<div class="cards">
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image" style="font-family: -apple-system, sans-serif; font-size: 12px; background: #f8fafc; padding: 12px; border-radius: 6px;">
+      <div style="background:#0f172a; color:#fff; padding:8px 12px; display:flex; align-items:center; gap:8px; border-radius:4px 4px 0 0; font-size:11px;">
+        <span>←</span> <strong>eat freely</strong>
+      </div>
+      <div style="background:#fff; border-radius:0 0 4px 4px; padding:10px;">
+        <div style="display:flex; gap:8px; align-items:center; margin-bottom:8px;">
+          <span style="font-size:24px;">🌸</span>
+          <div>
+            <div style="font-weight:700; font-size:13px;">Sakura Garden</div>
+            <div style="color:#64748b; font-size:10px;">Japanese · East Side · $$$ · 1.2 mi · 4.5★</div>
+          </div>
+        </div>
+        <div style="display:flex; gap:4px; flex-wrap:wrap; margin-bottom:8px;">
+          <span style="background:#0f172a;color:#fff;border-radius:4px;padding:2px 6px;font-size:9px;">vegetarian</span>
+          <span style="background:#e2e8f0;color:#64748b;border-radius:4px;padding:2px 6px;font-size:9px;">pescatarian</span>
+          <span style="background:#e2e8f0;color:#64748b;border-radius:4px;padding:2px 6px;font-size:9px;">gluten-free</span>
+        </div>
+        <div style="font-size:10px;color:#64748b;line-height:1.5;margin-bottom:8px;">Modern Japanese with extensive vegetarian and pescatarian menus.</div>
+        <div style="display:flex; gap:4px; flex-wrap:wrap;">
+          <span style="border:1px solid #e2e8f0;border-radius:4px;padding:2px 7px;font-size:9px;color:#64748b;">Vegetarian Sushi</span>
+          <span style="border:1px solid #e2e8f0;border-radius:4px;padding:2px 7px;font-size:9px;color:#64748b;">GF Soy Sauce</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Single column, top back button</h3>
+      <p>Clean linear layout. Header sticks at top with back arrow. Same content sections as the drawer but with more breathing room. Minimal — matches current app style.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image" style="font-family: -apple-system, sans-serif; font-size: 12px; background: #f8fafc; padding: 12px; border-radius: 6px;">
+      <div style="background:#0f172a; color:#fff; padding:8px 12px; display:flex; align-items:center; gap:8px; border-radius:4px 4px 0 0; font-size:11px;">
+        <span>←</span> <strong>eat freely</strong>
+      </div>
+      <div style="background:#fff; border-radius:0 0 4px 4px; overflow:hidden;">
+        <div style="background:#f1f5f9; height:50px; display:flex; align-items:center; justify-content:center; font-size:28px;">🌸</div>
+        <div style="padding:10px;">
+          <div style="font-weight:700; font-size:13px; margin-bottom:2px;">Sakura Garden</div>
+          <div style="color:#64748b; font-size:10px; margin-bottom:6px;">Japanese · East Side · $$$ · 1.2 mi · 4.5★</div>
+          <div style="display:flex; gap:4px; flex-wrap:wrap; margin-bottom:6px;">
+            <span style="background:#0f172a;color:#fff;border-radius:4px;padding:2px 6px;font-size:9px;">vegetarian</span>
+            <span style="background:#e2e8f0;color:#64748b;border-radius:4px;padding:2px 6px;font-size:9px;">gluten-free</span>
+          </div>
+          <div style="font-size:10px;color:#64748b;line-height:1.5;margin-bottom:6px;">Modern Japanese with extensive vegetarian and pescatarian menus.</div>
+          <div style="display:flex; gap:4px;">
+            <span style="border:1px solid #e2e8f0;border-radius:4px;padding:2px 7px;font-size:9px;color:#64748b;">Vegetarian Sushi</span>
+            <span style="border:1px solid #e2e8f0;border-radius:4px;padding:2px 7px;font-size:9px;color:#64748b;">GF Soy Sauce</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Hero banner at top</h3>
+      <p>Large emoji/image banner fills the top. Name and meta below it. Feels more like a restaurant app. Slightly more visual but same content beneath.</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,49 @@
+<h2>Admin Portal — Proposed Design</h2>
+<p class="subtitle">Review the full design. Let me know if anything needs changing.</p>
+
+<div class="section">
+  <span class="label">Structure</span>
+  <h3>Separate Vite app in <code>admin/</code></h3>
+  <p>Runs on its own dev server (e.g. port 5174). Completely isolated from the customer app. Both share the same dietary tag constants. Data saved to <strong>localStorage</strong>.</p>
+</div>
+
+<div class="section">
+  <span class="label">Mock Auth Gate</span>
+  <h3>Role selector at <code>/</code></h3>
+  <p>Two buttons: <strong>Sign in as Admin</strong> and <strong>Sign in as Restaurant Owner</strong>. Saves role to state. No passwords. A banner at the top of every page shows the current role with a "Sign out" link.</p>
+</div>
+
+<div class="section">
+  <span class="label">Admin Role — Pages</span>
+  <h3>Full access to all restaurants</h3>
+  <ul>
+    <li><strong>/dashboard</strong> — Table of all restaurants (name, cuisine, status). "Add Restaurant" button.</li>
+    <li><strong>/restaurant/new</strong> — Form to create a restaurant (name, cuisine, location, price range, emoji icon, description, highlights, dietary tags).</li>
+    <li><strong>/restaurant/:id</strong> — Edit restaurant details + manage its menu sections and items.</li>
+  </ul>
+</div>
+
+<div class="section">
+  <span class="label">Restaurant Owner Role — Pages</span>
+  <h3>Scoped to their one restaurant</h3>
+  <p>Skips the dashboard entirely. Goes straight to their restaurant's edit page. Cannot see or edit other restaurants.</p>
+  <p><em>(For mock auth, owner is always linked to restaurant #1 — easily changed when real auth arrives.)</em></p>
+</div>
+
+<div class="section">
+  <span class="label">Restaurant Form Fields</span>
+  <h3>What gets captured per restaurant</h3>
+  <p>Name · Cuisine · Location · Price range ($/$$/$$$) · Emoji icon · Rating · Distance · Description · Highlight chips · Dietary tags (multi-select: Halal, Vegetarian, Vegan, Gluten-Free, Kosher, Pescatarian, Sattvic)</p>
+</div>
+
+<div class="section">
+  <span class="label">Menu Management</span>
+  <h3>Sections → Items</h3>
+  <p>On the restaurant edit page, a Menu panel lets you add/rename/delete sections (e.g. Starters, Mains). Within each section, items have: <strong>Name · Description · Price · Dietary tags</strong> (same multi-select as above). Items can be added, edited inline, and deleted.</p>
+</div>
+
+<div class="section">
+  <span class="label">Data Layer</span>
+  <h3>localStorage + seed from mock data</h3>
+  <p>On first load, admin app seeds localStorage from the existing 8 mock restaurants. All edits write back to localStorage. The customer app (<code>restaurantService.js</code>) will be updated to read from localStorage first, falling back to mock data — so admin changes show up live in the customer app too.</p>
+</div>

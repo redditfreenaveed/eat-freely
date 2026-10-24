@@ -1,0 +1,26 @@
+<h2>How should restaurant cards navigate?</h2>
+<p class="subtitle">The DetailDrawer already works on Home. What role should <code>/restaurant/:id</code> play?</p>
+
+<div class="options">
+  <div class="option" data-choice="a" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Drawer stays, detail page is deep-link only</h3>
+      <p>Cards continue to open the slide-up drawer. The <code>/restaurant/:id</code> route exists for sharing/bookmarking links directly — same data, full-page layout. Best for a mobile-first app where the drawer already feels native.</p>
+    </div>
+  </div>
+  <div class="option" data-choice="b" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>Cards navigate to full detail page</h3>
+      <p>Tapping a card routes to <code>/restaurant/:id</code>. The DetailDrawer is removed or kept only as a quick-peek. The detail page becomes the primary experience with a back button to return to Home.</p>
+    </div>
+  </div>
+  <div class="option" data-choice="c" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>Both — drawer for quick peek, link to full page</h3>
+      <p>The drawer shows a summary with a "View full details →" button that navigates to <code>/restaurant/:id</code>. Two levels of detail. More clicks but richer experience.</p>
+    </div>
+  </div>
+</div>
